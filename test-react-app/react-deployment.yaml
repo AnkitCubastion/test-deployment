@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-react-app
+  namespace: test
+  labels:
+    app: test-react-app
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: test-react-app
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: test-react-app
+    spec:
+      containers:
+        - name: test-react-app
+          image: "10.0.0.34:8082/test-images/test-react-app:1.0"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: react-cm-secret
