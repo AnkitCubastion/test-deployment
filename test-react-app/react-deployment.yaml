@@ -26,3 +26,5 @@ spec:
           envFrom:
             - configMapRef:
                 name: react-cm-secret
+      imagePullSecrets:
+        - name: harbor-pull-secret
